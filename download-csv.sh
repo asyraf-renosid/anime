@@ -52,7 +52,7 @@ rm -fr ${folderpath}
 
 for value in ${listcounter[@]}
 do
-	echo "${listfilename[$value]},${listurl[$value]},$(timestr)" >> history.csv
+	echo "$(timestr),${listfilename[$value]},${listurl[$value]}" >> history.csv
 done
 rm request.csv
 touch request.csv
