@@ -57,3 +57,7 @@ done
 rm request.csv
 touch request.csv
 echo "" >> request.csv
+
+git add .
+git commit -m "$(timestr): Request resolved!"
+git push
