@@ -2,10 +2,11 @@
 # Read a string with spaces using for loop
 
 #rclone copy anime:uploaded/request.csv ./
+
 INPUT=request.csv
 OLDIFS=$IFS
-IFS=','
-
+IFS=","
+[ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
 listcounter=()
 listurl=()
 listfilename=()
@@ -17,16 +18,13 @@ foldername="dltemp-$(timestr)"
 folderpath="./${foldername}"
 
 while read filename url
-do
+do	
 	((c++))
-	echo "Filename: $filename"
-	echo "URL: $url"
 	listcounter[c]=$c
 	listurl[c]=$url
 	listfilename[c]=$filename
 done < $INPUT
-
-echo ${listurl[0]}
+IFS=$OLDIFS
 
 for value in ${listcounter[@]}
 do
@@ -35,8 +33,6 @@ do
 		echo "${listfilename[$value]}: Has been downloaded!"
 		echo ""
 	else
-		echo ${listurl[$value]}
-		echo ${listfilename[$value]}
     	aria2c -x 16 ${listurl[$value]} -o ${listfilename[$value]}
 		echo ""
 	fi
@@ -53,3 +49,11 @@ rclone copy ${folderpath} anime:uploaded -P
 echo ""    
 
 rm -fr ${folderpath}
+
+for value in ${listcounter[@]}
+do
+	echo "${listfilename[$value]},${listurl[$value]},$(timestr)" >> history.csv
+done
+rm request.csv
+touch request.csv
+echo "" >> request.csv
