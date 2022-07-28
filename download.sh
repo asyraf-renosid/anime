@@ -27,16 +27,14 @@ do
 	listcounter[c]=$c
 	listurl[c]=$url
 	listfilename[c]=$filename
-	echo "Download another file? [y/N]"
+	echo "Download another file? [Y/n]"
 	read anotherfile
 	echo ""
 	if [ -z $anotherfile ]
 	then
-		ri=0 
-	elif [ $anotherfile = 'y' ]
-	then
 		ri=1
-	else
+	elif [ $anotherfile = 'n' ]
+	then
 		ri=0
 	fi
 done 
