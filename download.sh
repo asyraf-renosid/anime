@@ -50,7 +50,7 @@ do
 		echo "${listfilename[$value]}: Has been downloaded!"
 		echo ""
 	else
-    	aria2c -x 16 ${listurl[$value]} -o ${listfilename[$value]}
+    	aria2c -x 32 ${listurl[$value]} -o ${listfilename[$value]}
 		echo ""
 	fi
 done
